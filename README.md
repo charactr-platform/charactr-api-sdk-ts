@@ -36,7 +36,7 @@ $ npm install
 $ npm install -g ts-node
 ```
 
-2. Open `./examples/credentials.ts` and put paste your **ClientKey** and **APIKey** inside.
+2. Open `./examples/credentials.ts` and paste your **ClientKey** and **APIKey** inside.
 
 #### Use TTS
 ```bash
