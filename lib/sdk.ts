@@ -3,12 +3,6 @@ import { VC } from "./vc";
 import { config } from "./config";
 import { getHeaders, parseAPIError } from "./utils";
 
-declare global {
-  interface Window {
-    CharactrAPISDK: CharactrAPISDK;
-  }
-}
-
 export type Config = {
   ClientKey: string;
   APIKey: string;
