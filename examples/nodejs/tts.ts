@@ -9,7 +9,7 @@ async function nodeTTSExample() {
 
   const voices = await sdk.tts.getVoices();
 
-  const result = await sdk.tts.convert(voices[2].id, "Hello world");
+  const result = await sdk.tts.convert(voices[0].id, "Hello world");
 
   console.log(result);
 
