@@ -1,0 +1,65 @@
+body {
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 14px;
+}
+
+img {
+    width: 200px;
+    display: block;
+    margin: 100px auto 50px auto;
+}
+
+table {
+    margin: 0 auto 100px auto;
+    border-collapse: collapse;
+}
+
+thead {
+    text-align: center;
+}
+
+td {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 50%;
+}
+
+p {
+    padding: 5px 0;
+}
+
+label {
+    display: flex;
+    align-items: center;
+}
+
+label > span {
+    display: inline-block;
+    width: 150px;
+    font-weight: 500;
+}
+
+label > input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 6px;
+    width: 100%;
+}
+
+button {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 6px;
+    cursor: pointer;
+}
+
+audio {
+    width: 100%;
+}
+
+#ttsLoading, #vcLoading {
+    visibility: hidden;
+    text-align: center;
+    color: #666;
+}

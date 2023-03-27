@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>charactr API browser example</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" type="module"></script>
+</head>
+<body>
+    <h1>
+        <img src="logo.png" alt="charactr" />
+    </h1>
+    <table>
+        <thead>
+            <tr>
+                <td><h2>TTS</h2></td>
+                <td><h2>VC</h2></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <form>
+                        <p>
+                            <label>
+                                <span>VoiceID:</span> <input type="number" id="ttsVoiceId" />
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <span>Text:</span> <input id="text" value="Hello world" />
+                            </label>
+                        </p>
+                        <p>
+                            <button type="button" id="convertTTSButton">Convert</button>
+                        </p>
+                        <p>
+                            <audio id="ttsAudio" controls></audio>
+                        </p>
+                        <p id="ttsLoading">Loading...</p>
+                    </form>
+                </td>
+                <td>
+                    <form>
+                        <p>
+                            <label>
+                                <span>VoiceID:</span> <input type="number" id="vcVoiceId" />
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <span>Input audio:</span> <input id="vcInputAudio" type="file" />
+                            </label>
+                        </p>
+                        <p>
+                            <button type="button" id="convertVCButton">Convert</button>
+                        </p>
+                        <p>
+                            <audio id="vcAudio" controls></audio>
+                        </p>
+                        <p id="vcLoading">Loading...</p>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
