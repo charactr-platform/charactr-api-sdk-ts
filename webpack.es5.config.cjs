@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     entry: './lib/sdk.ts',
-    mode: 'none',
+    mode: 'production',
     module: {
         rules: [
             {
