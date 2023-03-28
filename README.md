@@ -15,10 +15,10 @@ JavaScript/TypeScript SDK to interact with the charactr API.
 
 ## Installation
 ```bash
-$ npm install charactr-api-sdk-ts
+$ yarn add charactr-api-sdk-ts
 
 # Only for Node.JS < v17.x.x
-$ npm install node-fetch
+$ yarn add node-fetch
 ```
 
 ## Usage
@@ -32,7 +32,7 @@ For the detailed SDK usage, please refer to the `./examples` directory.
 1. Clone & install SDK locally
 ```bash
 $ git clone https://github.com/charactr-api-sdk-ts
-$ npm install
+$ yarn install
 $ npm install -g ts-node
 ```
 
