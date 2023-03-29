@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "declarationDir": "dist/@types",
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "sourceMap": false,
+    "outDir": "./dist/",
+    "baseUrl": "./",
+    "incremental": true,
+    "lib": [
+      "es5",
+      "es6",
+      "dom"
+    ],
+    "allowJs": true,
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "webpack*",
+    "examples"
+  ]
+}
