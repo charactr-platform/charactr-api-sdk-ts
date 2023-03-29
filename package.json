@@ -2,7 +2,7 @@
   "name": "charactr-api-sdk-ts",
   "version": "0.0.1",
   "description": "JavaScript/TypeScript SDK to interact with the Charactr API.",
-  "main": "./dist/sdk.js",
+  "main": "./dist/sdk.es5.js",
   "types": "./dist/@types/sdk.d.ts",
   "scripts": {
     "prebuild": "rimraf dist",
