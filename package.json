@@ -7,7 +7,6 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "node_modules/.bin/webpack --config webpack.es5.config.cjs && node_modules/.bin/webpack --config webpack.esm.config.cjs",
-    "postinstall": "npm run build",
     "lint": "eslint ."
   },
   "repository": {
