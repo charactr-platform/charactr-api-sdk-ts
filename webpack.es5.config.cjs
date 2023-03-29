@@ -26,6 +26,7 @@ module.exports = {
     output: {
         filename: 'sdk.es5.js',
         path: path.resolve(__dirname, 'dist'),
-        libraryTarget: 'umd'
+        libraryTarget: 'umd',
+        globalObject: `(typeof self !== 'undefined' ? self : this)`
     },
 };
