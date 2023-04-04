@@ -22,7 +22,7 @@ JavaScript/TypeScript SDK to interact with the charactr API.
 
 ## Installation
 ```bash
-$ yarn add charactr-api-sdk-ts
+$ yarn add @charactr/api-sdk
 ```
 
 ## Usage
