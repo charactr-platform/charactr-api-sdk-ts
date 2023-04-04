@@ -1,13 +1,13 @@
 {
-  "name": "charactr-api-sdk-ts",
-  "version": "0.0.1",
+  "name": "@charactr/api-sdk",
+  "version": "1.0.0",
   "description": "JavaScript/TypeScript SDK to interact with the Charactr API.",
-  "main": "./dist/sdk.js",
+  "main": "./dist/sdk.es5.js",
+  "module": "./dist/sdk.esm.js",
   "types": "./dist/@types/sdk.d.ts",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "webpack --config webpack.es5.config.cjs && webpack --config webpack.esm.config.cjs",
-    "postinstall": "npm run build",
+    "build": "node_modules/.bin/webpack --config webpack.es5.config.cjs && node_modules/.bin/webpack --config webpack.esm.config.cjs",
     "lint": "eslint ."
   },
   "repository": {
@@ -33,5 +33,9 @@
     "typescript": "^5.0.2",
     "webpack": "^5.76.3",
     "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {},
+  "engines" : {
+    "node" : ">=18.0.0"
   }
 }

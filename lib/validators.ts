@@ -25,9 +25,3 @@ export function validateTTSTextOrThrow(text: string): void {
     );
   }
 }
-
-export function validateAudioInputOrThrow(audio: Blob): void {
-  if (audio.type !== "audio/wav") {
-    throw new Error("Invalid audio type. Expected wav");
-  }
-}
