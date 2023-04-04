@@ -1,5 +1,5 @@
 export const config = {
-  charactrAPIUrl: "http://localhost:8015",
+  charactrAPIUrl: "https://api.charactr.com",
 };
 
 Object.freeze(config);
