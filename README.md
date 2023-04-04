@@ -27,7 +27,7 @@ $ yarn add @charactr/api-sdk
 
 ## Usage
 
-For the detailed SDK usage, please refer to the `./examples` directory.
+For the detailed SDK usage, please refer to the [SDK reference](https://dash.readme.com/project/slowpoke/v1.0/refs/typescript-javascript) or the `./examples` directory.
 
 ## How to run examples
 
@@ -37,6 +37,7 @@ For the detailed SDK usage, please refer to the `./examples` directory.
 ```bash
 $ git clone https://github.com/charactr-api-sdk-ts
 $ yarn install
+$ yarn build
 $ npm install -g ts-node
 ```
 
