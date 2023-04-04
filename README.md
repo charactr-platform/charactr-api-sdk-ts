@@ -7,6 +7,13 @@ JavaScript/TypeScript SDK to interact with the charactr API.
 
 **TTS** - *Text to speech* - converting text to voice audio.
 
+## Requirements
+
+#### Node.js
+```
+>= v18.0.0
+```
+
 ## Features
 
 - making TTS requests
@@ -16,9 +23,6 @@ JavaScript/TypeScript SDK to interact with the charactr API.
 ## Installation
 ```bash
 $ yarn add charactr-api-sdk-ts
-
-# Only for Node.JS < v17.x.x
-$ yarn add node-fetch
 ```
 
 ## Usage

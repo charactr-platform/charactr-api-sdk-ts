@@ -3,7 +3,6 @@ import { config } from "./config";
 import { AudioResponse, Voice } from "./types";
 import { getHeaders, parseAPIError } from "./utils";
 import { getValidVoiceIdOrThrow, validateTTSTextOrThrow } from "./validators";
-import * as fetch from "node-fetch";
 
 export class TTS {
   constructor(private config: Config) {}
