@@ -1,6 +1,6 @@
 {
   "name": "charactr-api-sdk-ts",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "JavaScript/TypeScript SDK to interact with the Charactr API.",
   "main": "./dist/sdk.es5.js",
   "types": "./dist/@types/sdk.d.ts",
