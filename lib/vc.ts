@@ -2,10 +2,8 @@ import { Config } from "./sdk";
 import { config } from "./config";
 import { AudioResponse, Voice } from "./types";
 import { getHeaders, parseAPIError } from "./utils";
-import {
-  getValidVoiceIdOrThrow,
-  validateAudioInputOrThrow,
-} from "./validators";
+import { getValidVoiceIdOrThrow } from "./validators";
+import * as fetch from "node-fetch";
 
 export class VC {
   constructor(private config: Config) {}
@@ -27,7 +25,6 @@ export class VC {
     voice: number | Voice,
     inputAudio: Blob
   ): Promise<AudioResponse> {
-    validateAudioInputOrThrow(inputAudio);
     const voiceId = getValidVoiceIdOrThrow(voice);
 
     const formData = new FormData();

@@ -2,6 +2,7 @@ import { TTS } from "./tts";
 import { VC } from "./vc";
 import { config } from "./config";
 import { getHeaders, parseAPIError } from "./utils";
+import * as fetch from "node-fetch";
 
 export type Config = {
   ClientKey: string;
