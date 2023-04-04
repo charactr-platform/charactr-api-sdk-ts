@@ -1,4 +1,4 @@
 export const credentials = {
-  ClientKey: "QpOXgSwIo4ftgFmQNcG6qW4gGadLtBlx",
-  APIKey: "YEHngPbX27zzrczUNy2UmXx3fTXuPIXT",
+  ClientKey: "AQptT6iPh6UfaAMXyK5deJ87eloFMOVc",
+  APIKey: "GVLSs6lzciXkO2wccIcfJ13he1jae98G",
 };
