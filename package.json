@@ -1,6 +1,6 @@
 {
   "name": "@charactr/api-sdk",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "JavaScript/TypeScript SDK to interact with the Charactr API.",
   "main": "./dist/sdk.es5.js",
   "module": "./dist/sdk.esm.js",
@@ -34,8 +34,11 @@
     "webpack": "^5.76.3",
     "webpack-cli": "^5.0.1"
   },
-  "dependencies": {},
-  "engines" : {
-    "node" : ">=18.0.0"
+  "dependencies": {
+    "isomorphic-ws": "^5.0.0",
+    "ws": "^8.13.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
