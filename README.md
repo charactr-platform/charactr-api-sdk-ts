@@ -55,6 +55,11 @@ $ npm install -g ts-node
 $ ts-node ./examples/nodejs/tts.ts
 ```
 
+#### Use TTS duplex streaming
+```bash
+$ ts-node ./examples/nodejs/tts_stream_duplex.ts
+```
+
 #### Use VC
 ```bash
 $ ts-node ./examples/nodejs/vc.ts

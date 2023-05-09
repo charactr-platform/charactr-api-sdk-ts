@@ -8,17 +8,29 @@ import WebSocket from "isomorphic-ws";
 enum WsMsgType {
   AuthApiKey = "authApiKey",
   Convert = "convert",
-  SetVoice = "setVoice",
+  End = "end",
 }
 
 export interface TTSStreamDuplex {
   convert: (text: string) => void;
-  setVoice: (voice: number | Voice) => void;
+  /**
+   * resolves when there were 5 seconds of stream inactivity
+   */
+  wait: () => Promise<void>;
+  /**
+   * closes the websocket connection immediately
+   * in most use cases we advise to use the `end()` method instead
+   */
   close: () => void;
+  /**
+   * requests the server to end the connection gracefully
+   */
+  end: () => void;
 }
 
 export interface TTSStreamDuplexCallbacks {
-  onData: (data: ArrayBuffer) => void;
+  onData?: (data: ArrayBuffer) => void;
+  onClose?: (event: CloseEvent) => void;
 }
 
 export class TTS {
@@ -65,13 +77,18 @@ export class TTS {
   }
 
   async convertStreamDuplex(
-    voiceId: number,
+    voice: number | Voice,
     cb: TTSStreamDuplexCallbacks
   ): Promise<TTSStreamDuplex> {
     return new Promise((resolve, reject) => {
+      const voiceId = getValidVoiceIdOrThrow(voice);
+
       const ws = new WebSocket(
         `${config.charactrAPIUrlWs}/v1/tts/stream/ws?voiceId=${voiceId}`
       );
+
+      let streamLastActiveAt = new Date();
+      let closedOrEnded = false;
 
       ws.onopen = () => {
         ws.send(
@@ -83,23 +100,24 @@ export class TTS {
         );
         resolve({
           convert,
-          setVoice,
           close,
+          end,
+          wait,
         });
       };
 
       ws.onclose = (event: CloseEvent) => {
-        reject(new Error(event.reason)); // @TODO
-      };
-
-      ws.onerror = (event: ErrorEvent) => {
-        console.error(event);
+        if (typeof cb.onClose === "function") {
+          cb.onClose(event);
+        }
+        reject(new Error(event.reason));
       };
 
       ws.onmessage = (message: MessageEvent) => {
         if (typeof cb.onData === "function") {
           cb.onData(message.data);
         }
+        streamLastActiveAt = new Date();
       };
 
       function validConnectionOrThrow() {
@@ -108,28 +126,68 @@ export class TTS {
         }
       }
 
-      function setVoice(voice: number | Voice) {
-        validConnectionOrThrow();
-        ws.send(
-          JSON.stringify({
-            type: WsMsgType.SetVoice,
-            voiceId: getValidVoiceIdOrThrow(voice),
-          })
-        );
-      }
-
       function convert(text: string) {
         validConnectionOrThrow();
+
         ws.send(
           JSON.stringify({
             type: WsMsgType.Convert,
             text,
           })
         );
+        streamLastActiveAt = new Date();
+      }
+
+      function msSinceStreamLastActive(): number {
+        const now = new Date();
+
+        return now.getTime() - streamLastActiveAt.getTime();
+      }
+
+      function isStreamActive(): boolean {
+        return msSinceStreamLastActive() < 5000;
+      }
+
+      async function wait(): Promise<void> {
+        return new Promise((resolve) => {
+          if (!isStreamActive()) {
+            resolve();
+          }
+
+          const interval = () => {
+            setTimeout(() => {
+              if (!isStreamActive()) {
+                resolve();
+              } else {
+                interval();
+              }
+            }, 500);
+          };
+
+          interval();
+        });
       }
 
       function close() {
-        ws.close();
+        if (closedOrEnded) {
+          return;
+        }
+
+        closedOrEnded = true;
+        ws.close(1000);
+      }
+
+      function end() {
+        if (closedOrEnded) {
+          return;
+        }
+
+        validConnectionOrThrow();
+        ws.send(
+          JSON.stringify({
+            type: WsMsgType.End,
+          })
+        );
       }
     });
   }
