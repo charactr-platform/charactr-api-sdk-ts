@@ -1,6 +1,6 @@
 export const config = {
-  charactrAPIUrl: "http://localhost:8015",
-  charactrAPIUrlWs: "ws://localhost:8015",
+  charactrAPIUrl: "https://api.charactr.com",
+  charactrAPIUrlWs: "wss://api.charactr.com",
 };
 
 Object.freeze(config);
