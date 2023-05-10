@@ -24,14 +24,14 @@ async function nodeTTSStreamSimplexExample() {
         fileStream.write(data);
       },
     });
-    fileStream.end();
     console.log("result_tts_stream_simplex.wav has been saved successfully.");
   } catch (error) {
-    fileStream.end();
     console.error(error);
     console.log(
       "result_tts_stream_simplex.wav has been saved but it can be corrupted or incomplete."
     );
+  } finally {
+    fileStream.end();
   }
 }
 nodeTTSStreamSimplexExample();
