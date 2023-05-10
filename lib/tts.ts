@@ -84,7 +84,7 @@ export class TTS {
       const voiceId = getValidVoiceIdOrThrow(voice);
 
       const ws = new WebSocket(
-        `${config.charactrAPIUrlWs}/v1/tts/stream/ws?voiceId=${voiceId}`
+        `${config.charactrAPIUrlWs}/v1/tts/stream/duplex/ws?voiceId=${voiceId}`
       );
 
       let streamLastActiveAt = new Date();
