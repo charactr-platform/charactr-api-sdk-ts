@@ -3,8 +3,8 @@ import { AudioResponse, Voice } from "./types";
 export interface TTSStreamDuplex {
     convert: (text: string) => void;
     wait: () => Promise<void>;
+    terminate: () => void;
     close: () => void;
-    end: () => void;
 }
 export interface TTSStreamDuplexCallbacks {
     onData?: (data: ArrayBuffer) => void;

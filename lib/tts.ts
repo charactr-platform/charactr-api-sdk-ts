@@ -8,7 +8,7 @@ import WebSocket from "isomorphic-ws";
 enum WsMsgType {
   AuthApiKey = "authApiKey",
   Convert = "convert",
-  End = "end",
+  Close = "close",
 }
 
 export interface TTSStreamDuplex {
@@ -18,14 +18,14 @@ export interface TTSStreamDuplex {
    */
   wait: () => Promise<void>;
   /**
-   * closes the websocket connection immediately
-   * in most use cases we advise to use the `end()` method instead
+   * terminates the websocket connection immediately
+   * in most use cases we advise to use the `close()` method instead
+   */
+  terminate: () => void;
+  /**
+   * requests the server to close the connection gracefully
    */
   close: () => void;
-  /**
-   * requests the server to end the connection gracefully
-   */
-  end: () => void;
 }
 
 export interface TTSStreamDuplexCallbacks {
@@ -88,7 +88,7 @@ export class TTS {
       );
 
       let streamLastActiveAt = new Date();
-      let closedOrEnded = false;
+      let isClosed = false;
 
       ws.onopen = () => {
         ws.send(
@@ -100,8 +100,8 @@ export class TTS {
         );
         resolve({
           convert,
+          terminate,
           close,
-          end,
           wait,
         });
       };
@@ -168,24 +168,24 @@ export class TTS {
         });
       }
 
-      function close() {
-        if (closedOrEnded) {
+      function terminate() {
+        if (isClosed) {
           return;
         }
 
-        closedOrEnded = true;
+        isClosed = true;
         ws.close(1000);
       }
 
-      function end() {
-        if (closedOrEnded) {
+      function close() {
+        if (isClosed) {
           return;
         }
 
         validConnectionOrThrow();
         ws.send(
           JSON.stringify({
-            type: WsMsgType.End,
+            type: WsMsgType.Close,
           })
         );
       }

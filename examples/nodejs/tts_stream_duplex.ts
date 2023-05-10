@@ -35,7 +35,7 @@ async function nodeTTSStreamExample() {
     },
   });
   stream.convert("Hello world from the charactr TTS Streaming.");
-  stream.end();
+  stream.close();
 }
 
 nodeTTSStreamExample();
