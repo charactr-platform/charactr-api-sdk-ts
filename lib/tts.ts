@@ -124,6 +124,12 @@ export class TTS {
         if (ws.readyState !== WebSocket.OPEN) {
           throw new Error("[CharactrSDK] WebSocket connection is not open!");
         }
+
+        if (isClosed) {
+          throw new Error(
+            "[CharactrSDK] WebSocket connection is already closed!"
+          );
+        }
       }
 
       function convert(text: string) {
@@ -183,6 +189,8 @@ export class TTS {
         }
 
         validConnectionOrThrow();
+
+        isClosed = true;
         ws.send(
           JSON.stringify({
             type: WsMsgType.Close,
