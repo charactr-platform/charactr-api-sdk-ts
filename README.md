@@ -57,7 +57,7 @@ $ ts-node ./examples/nodejs/tts.ts
 
 #### Use TTS simplex streaming
 ```bash
-$ ts-node ./examples/nodejs/tts_stream_duplex.ts
+$ ts-node ./examples/nodejs/tts_stream_simplex.ts
 ```
 
 #### Use TTS duplex streaming
