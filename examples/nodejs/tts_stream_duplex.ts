@@ -2,7 +2,7 @@ import { CharactrAPISDK } from "../../lib/sdk";
 import * as fs from "fs";
 import { credentials } from "../credentials.js";
 
-async function nodeTTSStreamExample() {
+async function nodeTTSStreamDuplexExample() {
   const sdk = new CharactrAPISDK(credentials);
 
   await sdk.init();
@@ -34,8 +34,8 @@ async function nodeTTSStreamExample() {
       }
     },
   });
-  stream.convert("Hello world from the charactr TTS Streaming.");
+  stream.convert("Hello world from the charactr TTS Duplex Streaming.");
   stream.close();
 }
 
-nodeTTSStreamExample();
+nodeTTSStreamDuplexExample();
