@@ -33,6 +33,10 @@ export interface TTSStreamDuplexCallbacks {
   onClose?: (event: CloseEvent) => void;
 }
 
+export interface TTSStreamSimplexCallbacks {
+  onData?: (data: ArrayBuffer) => void;
+}
+
 export class TTS {
   constructor(private config: Config) {}
 
@@ -197,6 +201,54 @@ export class TTS {
           })
         );
       }
+    });
+  }
+
+  async convertStreamSimplex(
+    voice: number | Voice,
+    text: string,
+    cb: TTSStreamSimplexCallbacks
+  ): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const voiceId = getValidVoiceIdOrThrow(voice);
+
+      const ws = new WebSocket(
+        `${config.charactrAPIUrlWs}/v1/tts/stream/simplex/ws?voiceId=${voiceId}`
+      );
+
+      ws.onopen = () => {
+        ws.send(
+          JSON.stringify({
+            type: WsMsgType.AuthApiKey,
+            clientKey: this.config.ClientKey,
+            apiKey: this.config.APIKey,
+          })
+        );
+        ws.send(
+          JSON.stringify({
+            type: WsMsgType.Convert,
+            text,
+          })
+        );
+      };
+
+      ws.onclose = (event: CloseEvent) => {
+        if (event.code === 1000) {
+          resolve();
+        } else {
+          reject(
+            new Error(
+              `Error [${event.code}]: ${event.reason || "unknown reason"}`
+            )
+          );
+        }
+      };
+
+      ws.onmessage = (message: MessageEvent) => {
+        if (typeof cb.onData === "function") {
+          cb.onData(message.data);
+        }
+      };
     });
   }
 }
