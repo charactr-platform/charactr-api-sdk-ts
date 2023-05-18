@@ -93,6 +93,7 @@ export class TTS {
 
       let streamLastActiveAt = new Date();
       let isClosed = false;
+      let isCloseRequested = false;
 
       ws.onopen = () => {
         ws.send(
@@ -129,7 +130,7 @@ export class TTS {
           throw new Error("[CharactrSDK] WebSocket connection is not open!");
         }
 
-        if (isClosed) {
+        if (isClosed || isCloseRequested) {
           throw new Error(
             "[CharactrSDK] WebSocket connection is already closed!"
           );
@@ -188,13 +189,9 @@ export class TTS {
       }
 
       function close() {
-        if (isClosed) {
-          return;
-        }
-
         validConnectionOrThrow();
 
-        isClosed = true;
+        isCloseRequested = true;
         ws.send(
           JSON.stringify({
             type: WsMsgType.Close,
