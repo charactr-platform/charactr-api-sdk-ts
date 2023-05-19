@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.0] - 2023-05-10
+
+- Added TTS Simplex Streaming feature
+- Added TTS Duplex Streaming feature
+- Updated the README.md
+
 ## [1.0.1] - 2023-04-04
 
 We added link to the SDK reference in the README.
