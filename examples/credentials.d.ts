@@ -1,3 +1,3 @@
-import { Config } from "../lib/sdk";
+import { Credentials } from "../lib/sdk";
 
-export declare const credentials: Config;
+export declare const credentials: Credentials;
