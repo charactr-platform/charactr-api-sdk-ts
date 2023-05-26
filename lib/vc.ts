@@ -1,11 +1,11 @@
-import { Config } from "./sdk";
+import { Credentials } from "./sdk";
 import { config } from "./config";
 import { AudioResponse, Voice } from "./types";
 import { getHeaders, parseAPIError } from "./utils";
 import { getValidVoiceIdOrThrow } from "./validators";
 
 export class VC {
-  constructor(private config: Config) {}
+  constructor(private config: Credentials) {}
 
   async getVoices(): Promise<Voice[]> {
     const response = await fetch(`${config.charactrAPIUrl}/v1/vc/voices`, {

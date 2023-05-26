@@ -1,4 +1,4 @@
-import { Config } from "./sdk";
+import { Credentials } from "./sdk";
 import { config } from "./config";
 import { AudioResponse, Voice } from "./types";
 import { getHeaders, parseAPIError } from "./utils";
@@ -38,12 +38,12 @@ export interface TTSStreamSimplexCallbacks {
 }
 
 export class TTS {
-  constructor(private config: Config) {}
+  constructor(private credentials: Credentials) {}
 
   async getVoices(): Promise<Voice[]> {
     const response = await fetch(`${config.charactrAPIUrl}/v1/tts/voices`, {
       method: "GET",
-      headers: getHeaders(this.config),
+      headers: getHeaders(this.credentials),
     });
 
     if (!response.ok) {
@@ -59,7 +59,7 @@ export class TTS {
 
     const response = await fetch(`${config.charactrAPIUrl}/v1/tts/convert`, {
       method: "POST",
-      headers: getHeaders(this.config),
+      headers: getHeaders(this.credentials),
       body: JSON.stringify({
         voiceId,
         text,
@@ -99,8 +99,8 @@ export class TTS {
         ws.send(
           JSON.stringify({
             type: WsMsgType.AuthApiKey,
-            clientKey: this.config.ClientKey,
-            apiKey: this.config.APIKey,
+            clientKey: this.credentials.ClientKey,
+            apiKey: this.credentials.APIKey,
           })
         );
         resolve({
@@ -217,8 +217,8 @@ export class TTS {
         ws.send(
           JSON.stringify({
             type: WsMsgType.AuthApiKey,
-            clientKey: this.config.ClientKey,
-            apiKey: this.config.APIKey,
+            clientKey: this.credentials.ClientKey,
+            apiKey: this.credentials.APIKey,
           })
         );
         ws.send(
