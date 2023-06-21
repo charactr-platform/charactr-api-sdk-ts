@@ -1,4 +1,5 @@
-import { Config } from "./sdk";
+import { Credentials } from "./sdk";
+import { SDKOptions } from "./options";
 import { AudioResponse, Voice } from "./types";
 export interface TTSStreamDuplex {
     convert: (text: string) => void;
@@ -14,8 +15,9 @@ export interface TTSStreamSimplexCallbacks {
     onData?: (data: ArrayBuffer) => void;
 }
 export declare class TTS {
-    private config;
-    constructor(config: Config);
+    private credentials;
+    private options;
+    constructor(credentials: Credentials, options: SDKOptions);
     getVoices(): Promise<Voice[]>;
     convert(voice: number | Voice, text: string): Promise<AudioResponse>;
     convertStreamDuplex(voice: number | Voice, cb: TTSStreamDuplexCallbacks): Promise<TTSStreamDuplex>;

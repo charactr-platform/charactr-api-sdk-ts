@@ -1,17 +1,20 @@
 import { Credentials } from "./sdk";
-import { config } from "./config";
+import { SDKOptions } from "./options";
 import { AudioResponse, Voice } from "./types";
 import { getHeaders, parseAPIError } from "./utils";
 import { getValidVoiceIdOrThrow } from "./validators";
 
 export class VC {
-  constructor(private config: Credentials) {}
+  constructor(private config: Credentials, private options: SDKOptions) {}
 
   async getVoices(): Promise<Voice[]> {
-    const response = await fetch(`${config.charactrAPIUrl}/v1/vc/voices`, {
-      method: "GET",
-      headers: getHeaders(this.config),
-    });
+    const response = await fetch(
+      `${this.options.charactrAPIUrl}/v1/vc/voices`,
+      {
+        method: "GET",
+        headers: getHeaders(this.config),
+      }
+    );
 
     if (!response.ok) {
       throw await parseAPIError(response);
@@ -34,7 +37,7 @@ export class VC {
     delete headers["Content-Type"];
 
     const response = await fetch(
-      `${config.charactrAPIUrl}/v1/vc/convert?voiceId=${voiceId}`,
+      `${this.options.charactrAPIUrl}/v1/vc/convert?voiceId=${voiceId}`,
       {
         method: "POST",
         headers,
