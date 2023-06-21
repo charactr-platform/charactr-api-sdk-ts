@@ -1,5 +1,5 @@
 import { Credentials } from "./sdk";
-import { config } from "./config";
+import { SDKOptions } from "./options";
 import { AudioResponse, Voice } from "./types";
 import { getHeaders, parseAPIError } from "./utils";
 import { getValidVoiceIdOrThrow, validateTTSTextOrThrow } from "./validators";
@@ -38,13 +38,16 @@ export interface TTSStreamSimplexCallbacks {
 }
 
 export class TTS {
-  constructor(private credentials: Credentials) {}
+  constructor(private credentials: Credentials, private options: SDKOptions) {}
 
   async getVoices(): Promise<Voice[]> {
-    const response = await fetch(`${config.charactrAPIUrl}/v1/tts/voices`, {
-      method: "GET",
-      headers: getHeaders(this.credentials),
-    });
+    const response = await fetch(
+      `${this.options.charactrAPIUrl}/v1/tts/voices`,
+      {
+        method: "GET",
+        headers: getHeaders(this.credentials),
+      }
+    );
 
     if (!response.ok) {
       throw await parseAPIError(response);
@@ -57,14 +60,17 @@ export class TTS {
     validateTTSTextOrThrow(text);
     const voiceId = getValidVoiceIdOrThrow(voice);
 
-    const response = await fetch(`${config.charactrAPIUrl}/v1/tts/convert`, {
-      method: "POST",
-      headers: getHeaders(this.credentials),
-      body: JSON.stringify({
-        voiceId,
-        text,
-      }),
-    });
+    const response = await fetch(
+      `${this.options.charactrAPIUrl}/v1/tts/convert`,
+      {
+        method: "POST",
+        headers: getHeaders(this.credentials),
+        body: JSON.stringify({
+          voiceId,
+          text,
+        }),
+      }
+    );
 
     if (!response.ok) {
       throw await parseAPIError(response);
@@ -88,7 +94,7 @@ export class TTS {
       const voiceId = getValidVoiceIdOrThrow(voice);
 
       const ws = new WebSocket(
-        `${config.charactrAPIUrlWs}/v1/tts/stream/duplex/ws?voiceId=${voiceId}`
+        `${this.options.charactrAPIUrlWs}/v1/tts/stream/duplex/ws?voiceId=${voiceId}`
       );
 
       let streamLastActiveAt = new Date();
@@ -210,7 +216,7 @@ export class TTS {
       const voiceId = getValidVoiceIdOrThrow(voice);
 
       const ws = new WebSocket(
-        `${config.charactrAPIUrlWs}/v1/tts/stream/simplex/ws?voiceId=${voiceId}`
+        `${this.options.charactrAPIUrlWs}/v1/tts/stream/simplex/ws?voiceId=${voiceId}`
       );
 
       ws.onopen = () => {

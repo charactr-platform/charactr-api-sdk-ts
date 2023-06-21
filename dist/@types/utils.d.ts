@@ -1,5 +1,5 @@
-import { Config } from "./sdk";
-export declare function getHeaders(config: Config): {
+import { Credentials } from "./sdk";
+export declare function getHeaders(credentials: Credentials): {
     "Content-Type": string;
     "X-Client-Key": string;
     "X-Api-Key": string;

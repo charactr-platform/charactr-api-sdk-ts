@@ -1,6 +1,6 @@
 import { TTS } from "./tts";
 import { VC } from "./vc";
-import { config } from "./config";
+import { defaultOptions, SDKOptions } from "./options";
 import { getHeaders, parseAPIError } from "./utils";
 
 export type Credentials = {
@@ -8,27 +8,17 @@ export type Credentials = {
   APIKey: string;
 };
 
-export type Options = {
-  overrideApiUrl?: string;
-  overrideWsApiUrl?: string;
-};
+export { SDKOptions } from "./options";
 
 export class CharactrAPISDK {
   initialized = false;
   tts!: TTS;
   vc!: VC;
 
-  constructor(private credentials: Credentials, private options: Options = {}) {
-    if (options.overrideApiUrl) {
-      config.charactrAPIUrl = options.overrideApiUrl;
-    }
-
-    if (options.overrideWsApiUrl) {
-      config.charactrAPIUrlWs = options.overrideWsApiUrl;
-    }
-
-    Object.freeze(config);
-
+  constructor(
+    private credentials: Credentials,
+    private options: SDKOptions = defaultOptions
+  ) {
     /*
      * This proxy intercepts class' property access to detect whether the SDK was correctly initialized.
      */
@@ -58,16 +48,19 @@ export class CharactrAPISDK {
   async init(): Promise<void> {
     await this.checkAuth();
 
-    this.tts = new TTS(this.credentials);
-    this.vc = new VC(this.credentials);
+    this.tts = new TTS(this.credentials, this.options);
+    this.vc = new VC(this.credentials, this.options);
     this.initialized = true;
   }
 
   async checkAuth(): Promise<void> {
-    const response = await fetch(`${config.charactrAPIUrl}/v1/auth/check`, {
-      method: "POST",
-      headers: getHeaders(this.credentials),
-    });
+    const response = await fetch(
+      `${this.options.charactrAPIUrl}/v1/auth/check`,
+      {
+        method: "POST",
+        headers: getHeaders(this.credentials),
+      }
+    );
 
     if (!response.ok) {
       if (response.status === 401) {

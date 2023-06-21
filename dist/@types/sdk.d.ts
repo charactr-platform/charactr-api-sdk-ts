@@ -1,15 +1,18 @@
 import { TTS } from "./tts";
 import { VC } from "./vc";
-export type Config = {
+import { SDKOptions } from "./options";
+export type Credentials = {
     ClientKey: string;
     APIKey: string;
 };
+export { SDKOptions } from "./options";
 export declare class CharactrAPISDK {
-    private config;
+    private credentials;
+    private options;
     initialized: boolean;
     tts: TTS;
     vc: VC;
-    constructor(config: Config);
+    constructor(credentials: Credentials, options?: SDKOptions);
     init(): Promise<void>;
     checkAuth(): Promise<void>;
 }

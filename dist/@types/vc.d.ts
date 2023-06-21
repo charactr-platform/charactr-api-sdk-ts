@@ -1,8 +1,10 @@
-import { Config } from "./sdk";
+import { Credentials } from "./sdk";
+import { SDKOptions } from "./options";
 import { AudioResponse, Voice } from "./types";
 export declare class VC {
     private config;
-    constructor(config: Config);
+    private options;
+    constructor(config: Credentials, options: SDKOptions);
     getVoices(): Promise<Voice[]>;
     convert(voice: number | Voice, inputAudio: Blob): Promise<AudioResponse>;
 }
