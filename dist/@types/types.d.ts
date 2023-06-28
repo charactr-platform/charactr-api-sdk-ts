@@ -7,6 +7,7 @@ export type Voice = {
     name: string;
     description: string;
     previewUrl: string;
+    previewUrls: string[];
     labels: VoiceLabel[];
 };
 export type AudioResponse = {

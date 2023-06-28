@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.0] - 2023-06-28
+
+- Added new `previewUrls` field to the `Voice` type
+
 ## [1.2.1] - 2023-06-21
 
 - Refactored & fixed custom API URLs when SDK is initialized multiple times with different configurations

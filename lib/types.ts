@@ -7,7 +7,8 @@ export type Voice = {
   id: number;
   name: string;
   description: string;
-  previewUrl: string;
+  previewUrl: string; // @deprecated
+  previewUrls: string[];
   labels: VoiceLabel[];
 };
 
