@@ -37,6 +37,11 @@ export interface TTSStreamSimplexCallbacks {
   onData?: (data: ArrayBuffer) => void;
 }
 
+export interface TTSStreamingOptions {
+  format?: string;
+  sampleRate?: number;
+}
+
 export class TTS {
   constructor(private credentials: Credentials, private options: SDKOptions) {}
 
@@ -88,13 +93,16 @@ export class TTS {
 
   async convertStreamDuplex(
     voice: number | Voice,
-    cb: TTSStreamDuplexCallbacks
+    cb: TTSStreamDuplexCallbacks = {},
+    options: TTSStreamingOptions = {}
   ): Promise<TTSStreamDuplex> {
     return new Promise((resolve, reject) => {
-      const voiceId = getValidVoiceIdOrThrow(voice);
+      const params = this.getTTSStreamingQueryParams(voice, options);
 
       const ws = new WebSocket(
-        `${this.options.charactrAPIUrlWs}/v1/tts/stream/duplex/ws?voiceId=${voiceId}`
+        `${
+          this.options.charactrAPIUrlWs
+        }/v1/tts/stream/duplex/ws?${params.toString()}`
       );
 
       let streamLastActiveAt = new Date();
@@ -210,13 +218,16 @@ export class TTS {
   async convertStreamSimplex(
     voice: number | Voice,
     text: string,
-    cb: TTSStreamSimplexCallbacks
+    cb: TTSStreamSimplexCallbacks = {},
+    options: TTSStreamingOptions = {}
   ): Promise<void> {
     return new Promise((resolve, reject) => {
-      const voiceId = getValidVoiceIdOrThrow(voice);
+      const params = this.getTTSStreamingQueryParams(voice, options);
 
       const ws = new WebSocket(
-        `${this.options.charactrAPIUrlWs}/v1/tts/stream/simplex/ws?voiceId=${voiceId}`
+        `${
+          this.options.charactrAPIUrlWs
+        }/v1/tts/stream/simplex/ws?${params.toString()}`
       );
 
       ws.onopen = () => {
@@ -253,5 +264,29 @@ export class TTS {
         }
       };
     });
+  }
+
+  private getTTSStreamingQueryParams(
+    voice: number | Voice,
+    options: TTSStreamingOptions
+  ): URLSearchParams {
+    const params = new URLSearchParams({
+      ua: "sdk-ts",
+      voiceId: String(getValidVoiceIdOrThrow(voice)),
+    });
+
+    if (options.sampleRate && !options.format) {
+      options.format = "wav";
+    }
+
+    if (options.format) {
+      params.set("format", options.format);
+    }
+
+    if (options.sampleRate) {
+      params.set("sr", String(options.sampleRate));
+    }
+
+    return params;
   }
 }
