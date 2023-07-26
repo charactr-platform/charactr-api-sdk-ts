@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.4.0] - 2023-07-26
 
-- Changed User-Agent header to custom value to differentiate different SDKs in the backend
+- Changed User-Agent header to custom value to differentiate SDKs in the backend
 - Exposed custom audio format and sample rate settings for TTS Streaming
 
 ## [1.3.0] - 2023-06-28
