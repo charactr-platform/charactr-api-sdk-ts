@@ -14,12 +14,17 @@ export interface TTSStreamDuplexCallbacks {
 export interface TTSStreamSimplexCallbacks {
     onData?: (data: ArrayBuffer) => void;
 }
+export interface TTSStreamingOptions {
+    format?: string;
+    sampleRate?: number;
+}
 export declare class TTS {
     private credentials;
     private options;
     constructor(credentials: Credentials, options: SDKOptions);
     getVoices(): Promise<Voice[]>;
     convert(voice: number | Voice, text: string): Promise<AudioResponse>;
-    convertStreamDuplex(voice: number | Voice, cb: TTSStreamDuplexCallbacks): Promise<TTSStreamDuplex>;
-    convertStreamSimplex(voice: number | Voice, text: string, cb: TTSStreamSimplexCallbacks): Promise<void>;
+    convertStreamDuplex(voice: number | Voice, cb?: TTSStreamDuplexCallbacks, options?: TTSStreamingOptions): Promise<TTSStreamDuplex>;
+    convertStreamSimplex(voice: number | Voice, text: string, cb?: TTSStreamSimplexCallbacks, options?: TTSStreamingOptions): Promise<void>;
+    private getTTSStreamingQueryParams;
 }
