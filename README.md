@@ -27,7 +27,7 @@ $ yarn add @charactr/api-sdk
 
 ## Usage
 
-For the detailed SDK usage, please refer to the [SDK reference](https://docs.api.charactr.com/reference/typescript-javascript) or the `./examples` directory.
+For the detailed SDK usage, please refer to the [SDK reference](https://docs.api.gemelo.ai/reference/typescript-javascript) or the `./examples` directory.
 
 ## Security of using the SDK in browser
 The ClientKey and ApiKey required to authenticate the SDK are meant to be private.

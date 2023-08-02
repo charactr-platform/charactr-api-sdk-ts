@@ -4,6 +4,6 @@ export type SDKOptions = {
 };
 
 export const defaultOptions: SDKOptions = {
-  charactrAPIUrl: "https://api.charactr.com",
-  charactrAPIUrlWs: "wss://api.charactr.com",
+  charactrAPIUrl: "https://api.gemelo.ai",
+  charactrAPIUrlWs: "wss://api.gemelo.ai",
 };
