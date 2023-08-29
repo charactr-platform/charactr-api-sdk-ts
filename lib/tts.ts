@@ -40,6 +40,8 @@ export interface TTSStreamSimplexCallbacks {
 export interface TTSStreamingOptions {
   format?: string;
   sampleRate?: number;
+  save? : boolean;
+  voiceType?: string
 }
 
 export class TTS {
@@ -285,6 +287,14 @@ export class TTS {
 
     if (options.sampleRate) {
       params.set("sr", String(options.sampleRate));
+    }
+
+    if (options.save) {
+      params.set("save", "true");
+    }
+
+    if (options.voiceType) {
+      params.set("voiceType", options.voiceType);
     }
 
     return params;

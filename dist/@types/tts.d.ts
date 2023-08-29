@@ -17,6 +17,8 @@ export interface TTSStreamSimplexCallbacks {
 export interface TTSStreamingOptions {
     format?: string;
     sampleRate?: number;
+    save?: boolean;
+    voiceType?: string;
 }
 export declare class TTS {
     private credentials;
