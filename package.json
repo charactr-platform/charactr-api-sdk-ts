@@ -1,6 +1,6 @@
 {
   "name": "@charactr/api-sdk",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "JavaScript/TypeScript SDK to interact with the Charactr API.",
   "main": "./dist/sdk.es5.js",
   "module": "./dist/sdk.esm.js",
