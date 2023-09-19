@@ -70,6 +70,22 @@ $ ts-node ./examples/nodejs/tts_stream_duplex.ts
 $ ts-node ./examples/nodejs/vc.ts
 ```
 
+#### Run ttfb / latency test
+```bash
+$ ts-node ./examples/nodejs/latency.ts
+```
+
+Example output:
+```
+$ ts-node ./examples/nodejs/latency.ts
+Running latency test. Today is Mon, 18 Sep 2023 11:53:29 GMT
+serverLatency is 273 ms
+voice "20" latency test: ttfb: 635 (server ttfb: 362) | total: 1560
+voice "40" latency test: ttfb: 359 (server ttfb: 86) | total: 1281
+voice "151" latency test: ttfb: 486 (server ttfb: 213) | total: 1395
+voice "222" latency test: ttfb: 881 (server ttfb: 608) | total: 1992
+```
+
 ### Browser
 
 Navigate go `./examples/browser/` and open `index.html` example in your browser of choice. Provided sample uses ESModules.
