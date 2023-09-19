@@ -20,7 +20,7 @@ async function nodeLatencyExample() {
     let startTime = 0;
     let timeToFirstByte = 0;
     const stream = await sdk.tts.convertStreamDuplex(v, {
-      onData: (data) => {
+      onData: () => {
         if (!timeToFirstByte) {
           timeToFirstByte = Date.now();
         }
