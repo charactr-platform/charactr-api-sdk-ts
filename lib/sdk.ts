@@ -1,5 +1,6 @@
 import { TTS } from "./tts";
 import { VC } from "./vc";
+import { VCC } from "./clones";
 import { defaultOptions, SDKOptions } from "./options";
 import { getHeaders, parseAPIError } from "./utils";
 
@@ -14,6 +15,7 @@ export class CharactrAPISDK {
   initialized = false;
   tts!: TTS;
   vc!: VC;
+  voiceClone!: VCC;
 
   constructor(
     private credentials: Credentials,
@@ -50,6 +52,7 @@ export class CharactrAPISDK {
 
     this.tts = new TTS(this.credentials, this.options);
     this.vc = new VC(this.credentials, this.options);
+    this.voiceClone = new VCC(this.credentials, this.options);
     this.initialized = true;
   }
 

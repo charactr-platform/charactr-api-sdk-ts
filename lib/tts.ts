@@ -40,8 +40,12 @@ export interface TTSStreamSimplexCallbacks {
 export interface TTSStreamingOptions {
   format?: string;
   sampleRate?: number;
-  save? : boolean;
-  voiceType?: string
+  save?: boolean;
+  voiceType?: string;
+}
+
+export interface TTSOptions {
+  voiceType?: string;
 }
 
 export class TTS {
@@ -63,10 +67,15 @@ export class TTS {
     return response.json();
   }
 
-  async convert(voice: number | Voice, text: string): Promise<AudioResponse> {
+  async convert(
+    voice: number | Voice,
+    text: string,
+    options: TTSOptions = {}
+  ): Promise<AudioResponse> {
     validateTTSTextOrThrow(text);
     const voiceId = getValidVoiceIdOrThrow(voice);
 
+    const voiceType = options.voiceType || "system";
     const response = await fetch(
       `${this.options.charactrAPIUrl}/v1/tts/convert`,
       {
@@ -75,6 +84,7 @@ export class TTS {
         body: JSON.stringify({
           voiceId,
           text,
+          voiceType,
         }),
       }
     );
