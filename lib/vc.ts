@@ -4,6 +4,10 @@ import { AudioResponse, Voice } from "./types";
 import { getHeaders, parseAPIError } from "./utils";
 import { getValidVoiceIdOrThrow } from "./validators";
 
+export interface VCOptions {
+  voiceType?: string;
+}
+
 export class VC {
   constructor(private config: Credentials, private options: SDKOptions) {}
 
@@ -25,7 +29,8 @@ export class VC {
 
   async convert(
     voice: number | Voice,
-    inputAudio: Blob
+    inputAudio: Blob,
+    options: VCOptions = {}
   ): Promise<AudioResponse> {
     const voiceId = getValidVoiceIdOrThrow(voice);
 
@@ -36,8 +41,9 @@ export class VC {
     // Content-Type must be undefined for fetch to automatically append a correct multipart/form-data type with boundary
     delete headers["Content-Type"];
 
+    const voiceType = options.voiceType || "system";
     const response = await fetch(
-      `${this.options.charactrAPIUrl}/v1/vc/convert?voiceId=${voiceId}`,
+      `${this.options.charactrAPIUrl}/v1/vc/convert?voiceId=${voiceId}&voiceType=${voiceType}`,
       {
         method: "POST",
         headers,

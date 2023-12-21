@@ -52,27 +52,32 @@ $ npm install -g ts-node
 
 #### Use TTS
 ```bash
-$ ts-node ./examples/nodejs/tts.ts
+ts-node ./examples/nodejs/tts.ts
 ```
 
 #### Use TTS simplex streaming
 ```bash
-$ ts-node ./examples/nodejs/tts_stream_simplex.ts
+ts-node ./examples/nodejs/tts_stream_simplex.ts
 ```
 
 #### Use TTS duplex streaming
 ```bash
-$ ts-node ./examples/nodejs/tts_stream_duplex.ts
+ts-node ./examples/nodejs/tts_stream_duplex.ts
 ```
 
 #### Use VC
 ```bash
-$ ts-node ./examples/nodejs/vc.ts
+ts-node ./examples/nodejs/vc.ts
+```
+
+#### Use Voice Clones
+```bash
+ts-node ./examples/nodejs/clones.ts
 ```
 
 #### Run ttfb / latency test
 ```bash
-$ ts-node ./examples/nodejs/latency.ts
+ts-node ./examples/nodejs/latency.ts
 ```
 
 Example output:
